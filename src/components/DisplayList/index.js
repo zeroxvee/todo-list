@@ -20,9 +20,9 @@ export const DisplayList = () => {
     const targetID = target.parentElement.dataset.id
     console.log(targetID)
 
-    setTodos(prev => {
-      const found = prev.find(({id}) => id === Number(targetID))
-      found.completed = true
+    setTodos(() => {
+      const found = todos.find(({id}) => id === Number(targetID))
+      found.completed = target.checked
 
      return todos.map(todo => todo.id === found.id ? found : todo)
 
