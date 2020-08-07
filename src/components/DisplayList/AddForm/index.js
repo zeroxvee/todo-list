@@ -1,15 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export const AddForm = () => {
+export const AddForm = ({ todos }) => {
 
 
   return (
-    <p>it works!</p>
+    <p>AddForm</p>
   )
-
 }
 
 AddForm.propTypes = {
-
+  todos: PropTypes.array
 }

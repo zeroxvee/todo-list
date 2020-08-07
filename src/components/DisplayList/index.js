@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import api from 'api'
 import { AddForm } from './AddForm'
+import { List } from './List'
 
 export const DisplayList = () => {
 
@@ -15,13 +16,12 @@ export const DisplayList = () => {
     data()
   }, [])
 
-  return (
-    todos.map((todo, i) =>
 
-      <div key={i}>
-        <p>Hey, its working!</p>
-        <input type="checkbox" checked={todo.completed}></input>
-      </div>
-    )
+
+  return (
+    <div>
+    <List todos={todos}/>
+    <AddForm todos={todos}/>
+    </div>
   )
 }
