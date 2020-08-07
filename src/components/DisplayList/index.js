@@ -16,23 +16,32 @@ export const DisplayList = () => {
     data()
   }, [])
 
-  const handleCheckbox = ({target}) => {
+  const handleCheckbox = ({ target }) => {
     const targetID = target.parentElement.dataset.id
     console.log(targetID)
 
     setTodos(() => {
-      const found = todos.find(({id}) => id === Number(targetID))
+      const found = todos.find(({ id }) => id === Number(targetID))
       found.completed = target.checked
 
-     return todos.map(todo => todo.id === found.id ? found : todo)
-
+      return todos.map(todo => todo.id === found.id ? found : todo)
     })
   }
 
+  const handlerAddTodo = (event) => {
+    event.preventDefault()
+    const todo = {}
+    todo.text = event.target.elements[0].value
+    todo.completed = false
+    todo.id = todos.length + 1
+    setTodos(prev => prev.concat(todo))
+  }
+
   return (
-    <div>
-      <List todos={todos} />
-      <AddForm todos={todos} handler={handleCheckbox} />
+    <div className="wrapper">
+      <p className="panel-heading">ToDo List</p>
+      <List todos={todos} handler={handleCheckbox} />
+      <AddForm todos={todos} handler={handlerAddTodo} />
     </div>
   )
 }

@@ -9,13 +9,17 @@ export const List = ({ todos, handler }) => {
 
   return (
 
-    <ol>
-      {todos.map(({ text, id, completed }) => (
-        <li key={id}  data-id={id} className={completed ? "completed" : null}>{text} <input type="checkbox" onClick={handler}/>
-        </li>
-      )
-      )}
-    </ol>
+    <div className="container">
+      <div className="field">
+        <ol className="">
+          {todos.map(({ text, id, completed }) => (
+            <li key={id} data-id={id} className={completed ? "completed" : null}>{text} <input type="checkbox" onClick={handler} />
+            </li>
+          )
+          )}
+        </ol>
+      </div>
+    </div>
   )
 }
 

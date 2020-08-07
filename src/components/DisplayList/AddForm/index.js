@@ -1,14 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export const AddForm = ({ todos }) => {
+export const AddForm = ({ handler }) => {
 
 
   return (
-    <p>AddForm</p>
+    <form onSubmit={handler}>
+      <input className="input" type="text"/>
+      <button>Add ToDo</button>
+    </form>
   )
 }
 
 AddForm.propTypes = {
-  todos: PropTypes.array
+  handler: PropTypes.func
 }
