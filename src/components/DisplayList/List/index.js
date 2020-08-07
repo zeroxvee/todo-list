@@ -1,20 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export const List = ({ todos }) => {
+import './List.css'
+
+export const List = ({ todos, handler }) => {
 
 
 
   return (
-    todos.map((todo, i) =>
 
-      <ol key={i}>
-        <li>{todo.text}</li>
-      </ol>
-    )
+    <ol>
+      {todos.map(({ text, id, completed }) => (
+        <li key={id}  data-id={id} className={completed ? "completed" : null}>{text} <input type="checkbox" onClick={handler}/>
+        </li>
+      )
+      )}
+    </ol>
   )
 }
 
 List.propTypes = {
-  todos: PropTypes.array
+  todos: PropTypes.array,
+  handler: PropTypes.func
 }

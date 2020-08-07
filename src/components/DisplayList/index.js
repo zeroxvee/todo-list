@@ -16,12 +16,23 @@ export const DisplayList = () => {
     data()
   }, [])
 
+  const handleCheckbox = ({target}) => {
+    const targetID = target.parentElement.dataset.id
+    console.log(targetID)
 
+    setTodos(prev => {
+      const found = prev.find(({id}) => id === Number(targetID))
+      found.completed = true
+
+     return todos.map(todo => todo.id === found.id ? found : todo)
+
+    })
+  }
 
   return (
     <div>
-    <List todos={todos}/>
-    <AddForm todos={todos}/>
+      <List todos={todos} />
+      <AddForm todos={todos} handler={handleCheckbox} />
     </div>
   )
 }
