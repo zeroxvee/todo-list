@@ -1,9 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+
 import './List.css'
 
-export const List = ({ todos, handler }) => {
+export const List = ({ todos, handler, handleTrash }) => {
 
 
 
@@ -14,6 +17,7 @@ export const List = ({ todos, handler }) => {
         <ol className="">
           {todos.map(({ text, id, completed }) => (
             <li key={id} data-id={id} className={completed ? "completed" : null}>{text} <input type="checkbox" onClick={handler} />
+            <FontAwesomeIcon icon={faTrash} onClick={handleTrash} className="has-text-danger "/>
             </li>
           )
           )}
@@ -25,5 +29,6 @@ export const List = ({ todos, handler }) => {
 
 List.propTypes = {
   todos: PropTypes.array,
-  handler: PropTypes.func
+  handler: PropTypes.func,
+  handleTrash: PropTypes.func
 }
