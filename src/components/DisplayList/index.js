@@ -12,6 +12,15 @@ function reducer(state, action) {
       completed: false,
       id: state.length + 1,
     })
+
+    case "remove":
+      return state.filter(todo => todo.id != action.id)
+
+    case "check": {
+      //state.filter(({id}) => id !== toggleTodo.id).concat(toggleTodo)
+      return state.map(todo => todo.id === action.foundTodo.id ? action.foundTodo : todo)
+    }
+
     default: break
   }
 }
@@ -20,37 +29,33 @@ export const DisplayList = () => {
 
   const [todos, dispatch] = useReducer(reducer, [])
 
-  useEffect(() => {
-    const data = async () => {
-      const list = await api.index()
-      setTodos(list)
-    }
-    data()
-  }, [])
+  // useEffect(() => {
+  //   const data = async () => {
+  //     const list = await api.index()
+  //     setTodos(list)
+  //   }
+  //   data()
+  // }, [])
 
   //FX to check/uncheck a TODO
   const handleCheckbox = ({ target }) => {
     const targetID = target.parentElement.dataset.id
-    console.log(targetID)
+    const found = todos.find(({ id }) => id === Number(targetID))
+    found.completed = target.checked
 
-    setTodos(() => {
-      const found = todos.find(({ id }) => id === Number(targetID))
-      found.completed = target.checked
-
-      return todos.map(todo => todo.id === found.id ? found : todo)
-    })
+    dispatch({type: "check", foundTodo: found})
   }
 
   //FX to add a TODO task
   const handlerAddTodo = (event) => {
     event.preventDefault()
     dispatch({type: "add", text: event.target.elements[0].value})
+    event.target.reset()
   }
 
   //FX to remove TODO task
   const removeTodo = ({target}) => {
-    const id = target.closest("li").dataset.id
-    setTodos(prev => prev.filter(todo => todo.id != id))
+    dispatch({type: "remove", id: target.closest("li").dataset.id, })
   }
 
   //Render TODO list and count how many todo are done
