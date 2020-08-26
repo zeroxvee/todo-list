@@ -1,12 +1,24 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 
 import api from 'api'
 import { AddForm } from './AddForm'
 import { List } from './List'
 
+function reducer(state, action) {
+  switch (action.type) {
+    case "add":
+    return state.concat({
+      text: action.text,
+      completed: false,
+      id: state.length + 1,
+    })
+    default: break
+  }
+}
+
 export const DisplayList = () => {
 
-  const [todos, setTodos] = useState([])
+  const [todos, dispatch] = useReducer(reducer, [])
 
   useEffect(() => {
     const data = async () => {
@@ -32,12 +44,7 @@ export const DisplayList = () => {
   //FX to add a TODO task
   const handlerAddTodo = (event) => {
     event.preventDefault()
-    const todo = {}
-    todo.text = event.target.elements[0].value
-    todo.completed = false
-    todo.id = todos.length + 1
-    setTodos(prev => prev.concat(todo))
-    event.target.reset()
+    dispatch({type: "add", text: event.target.elements[0].value})
   }
 
   //FX to remove TODO task
