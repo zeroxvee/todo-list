@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
-import './List.css'
+import './List.scss'
 
 export const List = ({ todos, handler, handleTrash }) => {
 
